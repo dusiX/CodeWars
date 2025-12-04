@@ -16,20 +16,20 @@ def next_bigger(n):
     elif len(strn) == 2:
         return int(strn[::-1]) if int(strn[::-1])>n else -1
     else:
-        chartab = []
-        for i in range(len(strn)):
-            chartab.append(int(strn[i]))
+        prevnewn = 0
+        chartab = [int(x) for x in strn]
         
         for i in range(len(strn)-1,0,-1):
-            if chartab[i-1] < chartab[i]:
-                chartab.insert(i-1, int(strn[i]))
-                del chartab[i+1]
-                newn = int(''.join(str(chartab[i]) for i in range(len(chartab))))
-                if newn > n:
-                    return newn
-            else:
-                continue
-        
-    return -1
+            for j in range(i-1,-1,-1):
+                chartab_copy = chartab[:]
+                if chartab_copy[j] < chartab_copy[i]:
+                    chartab_copy[j], chartab_copy[i] = chartab_copy[i], chartab_copy[j]
+                    chartab_copy = chartab_copy[:j+1] + sorted(chartab_copy[j+1:])
+                    newn = int(''.join(str(d) for d in chartab_copy))
+                    if newn > n:
+                        if prevnewn == 0 or newn < prevnewn:
+                            prevnewn = newn
+
+    return prevnewn if prevnewn > n else -1
 
 print(next_bigger(144))
