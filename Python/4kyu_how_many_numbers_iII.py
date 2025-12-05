@@ -28,7 +28,6 @@ def find_all(sum_dig, digs):
     min_val = None
     max_val = None
 
-    # Generujemy wszystkie niemalejące sekwencje cyfr (1–9)
     for comb in combinations_with_replacement(range(1, 10), digs):
         if sum(comb) == sum_dig:
             num = int(''.join(map(str, comb)))
