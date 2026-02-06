@@ -31,5 +31,3 @@ def next_bigger(n):
                             prevnewn = newn
 
     return prevnewn if prevnewn > n else -1
-
-print(next_bigger(144))
